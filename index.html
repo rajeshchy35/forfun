@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login with 3D Background</title>
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* 3D Canvas */
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    /* Form Container */
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+      background: rgba(0, 123, 255, 0.85); 
+      background: linear-gradient(135deg, rgba(0,170,255,0.9), rgba(0,123,255,0.85));
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0,170,255,0.6);
+      text-align: center;
+      color: white;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    input {
+      background: rgba(255,255,255,0.9);
+      color: #333;
+    }
+
+    button {
+      background: #0056b3;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #003f88;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Canvas -->
+  <canvas id="bg"></canvas>
+
+  <!-- Login Form -->
+  <div class="container" id="authPage">
+    <h2>Sign In</h2>
+    <input type="text" id="username" placeholder="Enter your name" required />
+    <input type="password" id="password" placeholder="Enter password" required />
+    <input type="date" id="date" required />
+    <button onclick="login(event)" href="index.html">Login</button>
+  </div>
+
+  <!-- Three.js for 3D Background -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+  <script>
+    // 3D Scene Setup
+    const canvas = document.getElementById("bg");
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({canvas});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Particle Geometry
+    const geometry = new THREE.BufferGeometry();
+    const particles = 5000;
+    const positions = new Float32Array(particles * 3);
+
+    for (let i = 0; i < particles * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 200;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: 0x007BFF, // matches form
+      size: 0.6
+    });
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    camera.position.z = 50;
+
+    // Animation
+    function animate() {
+      requestAnimationFrame(animate);
+      points.rotation.y += 0.0008;
+      points.rotation.x += 0.0005;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize Event
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Login Function
+    function login(event) {
+      event.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      const dat = document.getElementById('date').value;
+
+      if (user && pass && dat) {
+        // alert("Welcome " + user + "! Your birthday: " + dat);
+        // Example redirect:
+        window.location.href = "home.html";
+      } else {
+        alert("Please fill all fields.");
+      }
+    }
+  </script>
+</body>
+</html>

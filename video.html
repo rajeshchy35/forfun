@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      *{
+            padding: 0px;
+            margin: 0px;
+            overflow-x: none;
+        }
+        .container{
+            width: 100vw;
+            height: 100vh;
+        }
+        .photo img{
+            width: 130px;
+            height: 150px;
+        }
+        .photo{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .nav{
+             background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+            width: 100%;
+            height: 15%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* gap: 450px; */
+            /* padding: 0 20px; */
+        }
+        @media (max-width:600px){
+            .nav{
+                flex-direction: column;
+            }
+        }
+        .h2{
+            padding-left:  20px;
+            color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
+       .link{
+            padding-right: 20px;
+       }
+       .video{
+        padding-top: 10px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+       }
+      .a{
+        height: 50%;
+        width: 50%;
+      }
+      .b{
+        height: 50%;
+        width: 50%;
+      }
+       .video-bg {
+      position: fixed;
+      top: 15%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.7;
+    }
+    @media (max-width: 600px) {
+  .video-bg {
+    object-fit: contain; 
+    width: 100vw;
+    height: 100vh;
+  }
+}
+  
+    </style>
+  </head>
+  <body>
+     <div class="container">
+         <video autoplay muted loop class="video-bg">
+            <source src="vdo3.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+         </video>
+        <div class="nav">
+            <div class="h2">
+                <h2>HAPPY BIRTHDAY LAXMI CHAUDHARY</h2>
+            </div>
+            <DIV class="link"> 
+                <a href="home.html">Go Back to Home</a>
+            </DIV>
+        </div>
+        <div class="video">
+            <video class="a" src="vdo1.mp4" controls></video>
+            <video class="b" src="vdo2.mp4" controls></video>
+        </div>
+        <div class="bg"></div>
+    </div>
+  </body>
+</html>
